@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+<div class="container">
     <h1>Users <a href="{{ url('/admin/users/create') }}" class="btn btn-primary pull-right btn-sm">Add New User</a></h1>
     <div class="table">
         <table class="table table-bordered table-striped table-hover">
@@ -24,7 +24,8 @@
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['/admin/users', $item->id],
-                            'style' => 'display:inline'
+                            'style' => 'display:inline',
+                            'class' => 'delete'
                         ]) !!}
                             {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
                         {!! Form::close() !!}
@@ -33,7 +34,15 @@
             @endforeach
             </tbody>
         </table>
+        <script>
+            jQuery(document).ready(function($){
+     $('.delete').on('submit',function(e){
+        if(!confirm('Do you want to delete this item?')){
+              e.preventDefault();
+        }
+      });
+});
+        </script>
         <div class="pagination"> {!! $users->render() !!} </div>
     </div>
-
 @endsection

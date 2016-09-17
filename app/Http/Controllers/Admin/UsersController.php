@@ -43,12 +43,12 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['name' => 'required', 'email' => 'required', 'password' => 'required', 'roles' => 'required']);
+
+        $this->validate($request, ['name' => 'required|required|max:70', 'email' => 'required|email|max:255|unique:users', 'emp_id' => 'required|min:4|unique:users', 'password' => 'required|min:6|confirmed', 'roles' => 'required']);
 
         $data = $request->except('password');
         $data['password'] = bcrypt($request->password);
         $user = User::create($data);
-
         foreach ($request->roles as $role) {
             $user->assignRole($role);
         }

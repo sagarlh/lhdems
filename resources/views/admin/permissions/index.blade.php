@@ -24,7 +24,8 @@
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['/admin/permissions', $item->id],
-                            'style' => 'display:inline'
+                            'style' => 'display:inline',
+                            'class' => 'delete'
                         ]) !!}
                             {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
                         {!! Form::close() !!}
@@ -33,6 +34,15 @@
             @endforeach
             </tbody>
         </table>
+        <script>
+            jQuery(document).ready(function($){
+                 $('.delete').on('submit',function(e){
+                    if(!confirm('Do you want to delete this item?')){
+                          e.preventDefault();
+                    }
+                  });
+            });
+        </script>   
         <div class="pagination"> {!! $permissions->render() !!} </div>
     </div>
 

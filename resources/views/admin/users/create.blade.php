@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+<div class="container">
     <h1>Create New User</h1>
     <hr/>
 
@@ -21,11 +21,25 @@
             {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
+    <div class="form-group {{ $errors->has('emp_id') ? 'has-error' : ''}}">
+        {!! Form::label('emp_id', 'Employment ID: ', ['class' => 'col-sm-3 control-label']) !!}
+        <div class="col-sm-6">
+            {!! Form::text('emp_id', null, ['class' => 'form-control', 'required' => 'required']) !!}
+            {!! $errors->first('emp_id', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
     <div class="form-group {{ $errors->has('password') ? 'has-error' : ''}}">
         {!! Form::label('password', 'Password: ', ['class' => 'col-sm-3 control-label']) !!}
         <div class="col-sm-6">
             {!! Form::password('password', ['class' => 'form-control', 'required' => 'required']) !!}
             {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+    <div class="form-group {{ $errors->has('password_confirmation') ? 'has-error' : ''}}">
+        {!! Form::label('password_confirmation', 'Confirm Password: ', ['class' => 'col-sm-3 control-label']) !!}
+        <div class="col-sm-6">
+            {!! Form::password('password_confirmation', ['class' => 'form-control', 'required' => 'required']) !!}
+            {!! $errors->first('password_confirmation', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group {{ $errors->has('roles') ? 'has-error' : ''}}">

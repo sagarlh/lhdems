@@ -14,12 +14,49 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('admin', 'Admin\\AdminController@index');
-Route::get('admin/give-role-permissions', 'Admin\\AdminController@getGiveRolePermissions');
-Route::post('admin/give-role-permissions', 'Admin\\AdminController@postGiveRolePermissions');
-Route::resource('admin/roles', 'Admin\\RolesController');
-Route::resource('admin/permissions', 'Admin\\PermissionsController');
-Route::resource('admin/users', 'Admin\\UsersController');
+
+Route::get('admin/give-role-permissions',[
+    'middleware' => 'auth',
+    'uses' => 'Admin\\AdminController@getGiveRolePermissions'
+]);
+
+Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'super-admin', 'prefix' => 'admin'], function () {
+
+    //Route::get('/dashboard', 'Admin\\DashboardController@showUser');
+
+    Route::post('/give-role-permissions', 'Admin\\AdminController@postGiveRolePermissions');
+
+	Route::resource('/roles', 'Admin\\RolesController');
+
+	Route::resource('/permissions', 'Admin\\PermissionsController');
+
+	Route::resource('/users', 'Admin\\UsersController');
+
+    Route::resource('/users', 'Admin\\UsersController');
+
+    Route::resource('/departments', 'Admin\\DepartmentController');
+    
+    Route::resource('/designations', 'Admin\\DesignationController');
+    
+});
+
+Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'admin', 'prefix' => 'testing'], function () {
+    Route::get('/test', 'Admin\\DashboardController@showUser');
+    //Route::auth();
+    
+    });
+
+Route::get('/doing', 'HomeController@index')->middleware('superadmin'); 
+/*Route::get('testing', [
+     'middleware' => ['auth', 'roles'],
+     'uses' => 'HomeController@index',
+     'roles' => ['super-admin','fff']
+]);*/
+
+Route::get('admin/login', 'Auth\AuthController@getLogin');
 Route::auth();
+
 
 Route::get('/home', 'HomeController@index');

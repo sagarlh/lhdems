@@ -65,7 +65,19 @@
                                 @endif
                             </div>
                         </div>
+                        <div class="form-group{{ $errors->has('emp_id') ? ' has-error' : '' }}">
+                            <label for="emp_id" class="col-md-4 control-label">EMP ID</label>
 
+                            <div class="col-md-6">
+                                <input id="emp_id" type="text" class="form-control" name="emp_id" value="{{ old('emp_id') }}">
+
+                                @if ($errors->has('emp_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('emp_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">

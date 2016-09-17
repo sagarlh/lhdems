@@ -28,8 +28,11 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
-
+    protected $redirectAfterLogout = 'admin/login';
+    //protected $loginPath = 'admin/login';
+    //protected $guard = '/admin';
+    protected $redirectTo = 'admin/';
+    protected $username = 'emp_id';
     /**
      * Create a new authentication controller instance.
      *
@@ -37,7 +40,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        //$this->middleware($this->guestMiddleware(), ['except' => 'logout']);
     }
 
     /**
@@ -52,6 +55,7 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+            'emp_id' => 'required|min:4|unique:users',
         ]);
     }
 
@@ -66,6 +70,7 @@ class AuthController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'emp_id' => $data['emp_id'],
             'password' => bcrypt($data['password']),
         ]);
     }
