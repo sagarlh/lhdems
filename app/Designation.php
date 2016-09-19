@@ -11,7 +11,7 @@ class Designation extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'label'];
+    protected $fillable = ['designation_name', 'department_id'];
 
     protected $table = 'designation';
     

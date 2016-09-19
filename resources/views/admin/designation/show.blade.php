@@ -10,12 +10,12 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>Department Name</th><th>Billable </th><th>Created on</th> <th>Last modified</th> 
+                    <th>Designation Name</th><th>Department </th><th>Created on</th> <th>Last modified</th> 
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td> {{ $department->department_name }} </td><td> @if($department->is_billable == 0) No @else Yes @endif </td> <td> {{ $department->created_at }} </td> <td> {{ $department->updated_at }} </td>
+                    <td> {{ $designation->Designation_name }} </td><td>  </td> <td> {{ $designation->created_at-> }} </td> <td> {{ $designation->updated_at }} </td>
                 </tr>
             </tbody>
         </table>

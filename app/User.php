@@ -18,11 +18,28 @@ class User extends Authenticatable
     ];
 
     /**
+    * primaryKey
+    *
+    * @var string
+    * @access protected
+    */
+    //protected $primaryKey = 'user_id';
+
+    /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
+     * @access protected
      */
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Get the employee leaves from employee leave table.
+     */
+    public function leaves()
+    {
+        return $this->hasMany('App\EmployeeLeaves', 'emp_id', 'emp_id');
+    }
 }

@@ -39,8 +39,6 @@ Route::group(['middleware' => ['auth', 'roles'], 'roles' => 'super-admin', 'pref
     Route::resource('/departments', 'Admin\\DepartmentController');
     
     Route::resource('/designations', 'Admin\\DesignationController');
-
-    Route::get('/calendar', 'Admin\\Calendar@calendarEvent');
     
 });
 

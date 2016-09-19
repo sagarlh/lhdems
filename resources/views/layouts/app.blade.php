@@ -43,7 +43,10 @@
                         </ul>
                     </li>
                     <li><a href="{{ url('/admin/departments') }}">Departments</a></li>
-                    <li><a href="{{ url('/admin/departments') }}">Departments</a></li>                    
+                    <li><a href="{{ url('/admin/designations') }}">Designations</a></li>
+                    <li><a href="{{ url('/tickets') }}">Tickets</a></li>  
+                    <li><a href="{{ url('/admin/calendar') }}">Company Calendar</a></li> 
+                                      
                     <!--<li><a href="{{ url('/admin/generator') }}">Generator</a></li>-->
                 </ul>
 
@@ -82,5 +85,48 @@
     <!-- Scripts -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/plug-ins/505bef35b56/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script src="//cdn.datatables.net/responsive/1.0.7/js/dataTables.responsive.min.js"></script>
+    <script>
+        $('.table').DataTable({
+            processing: false,
+            serverSide: true,
+            responsive: true,
+            lengthMenu: {{ json_encode($setting->grab('length_menu')) }},
+            ajax: '{!! route($setting->grab('main_route').'.data') !!}',
+            language: {
+                decimal:        "{{ trans('ticketit::lang.table-decimal') }}",
+                emptyTable:     "{{ trans('ticketit::lang.table-empty') }}",
+                info:           "{{ trans('ticketit::lang.table-info') }}",
+                infoEmpty:      "{{ trans('ticketit::lang.table-info-empty') }}",
+                infoFiltered:   "{{ trans('ticketit::lang.table-info-filtered') }}",
+                infoPostFix:    "{{ trans('ticketit::lang.table-info-postfix') }}",
+                thousands:      "{{ trans('ticketit::lang.table-thousands') }}",
+                lengthMenu:     "{{ trans('ticketit::lang.table-length-menu') }}",
+                loadingRecords: "{{ trans('ticketit::lang.table-loading-results') }}",
+                processing:     "{{ trans('ticketit::lang.table-processing') }}",
+                search:         "{{ trans('ticketit::lang.table-search') }}",
+                zeroRecords:    "{{ trans('ticketit::lang.table-zero-records') }}",
+                paginate: {
+                    first:      "{{ trans('ticketit::lang.table-paginate-first') }}",
+                    last:       "{{ trans('ticketit::lang.table-paginate-last') }}",
+                    next:       "{{ trans('ticketit::lang.table-paginate-next') }}",
+                    previous:   "{{ trans('ticketit::lang.table-paginate-prev') }}"
+                },
+                aria: {
+                    sortAscending:  "{{ trans('ticketit::lang.table-aria-sort-asc') }}",
+                    sortDescending: "{{ trans('ticketit::lang.table-aria-sort-desc') }}"
+                },
+            },
+            columns: [
+                { data: 'id', name: 'ticketit.id' },
+                { data: 'subject', name: 'subject' },
+                { data: 'status', name: 'ticketit_statuses.name' },
+                { data: 'updated_at', name: 'ticketit.updated_at' },
+                { data: 'agent', name: 'users.name' },
+            ]
+        });
+    </script>
 </body>
 </html>

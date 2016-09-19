@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class AddEmpiidStatusToUsertable extends Migration
+class AlterUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AddEmpiidStatusToUsertable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            // Adding emp_id and status to the users table
-            $table->string('emp_id',15)->unique()->after('password');
-            $table->boolean('status')->after('emp_id');
+            $table->boolean('ticketit_admin')->default(0);
+            $table->boolean('ticketit_agent')->default(0);
         });
     }
 
@@ -27,9 +26,7 @@ class AddEmpiidStatusToUsertable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //
-            $table->dropColumn('emp_id');
-            $table->dropColumn('status');
+            $table->dropColumn(['ticketit_admin', 'ticketit_agent']);
         });
     }
 }

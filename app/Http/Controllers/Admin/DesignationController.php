@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Designation;
 use App\Department;
+use Session;
 
 class DesignationController extends Controller
 {
@@ -21,7 +22,7 @@ class DesignationController extends Controller
     {
         $count = Designation::count();
         $designations = Designation::paginate(15);
-
+        //$count = Designation::::find(1)->designations;
         return view('admin.designation.index', compact('designations', 'count'));
     }
 
@@ -45,14 +46,14 @@ class DesignationController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
-        /*$this->validate($request, ['department_id' => 'required|numeric', 'designation_name' => 'required']);
+        //return $request->all();
+        $this->validate($request, ['department_id' => 'required|numeric', 'designation_name' => 'required']);
 
         Designation::create($request->all());
 
         Session::flash('flash_message', 'Department added!');
 
-        return redirect('admin/departments'.$url );*/
+        return redirect('admin/designations');
 
     }
 
